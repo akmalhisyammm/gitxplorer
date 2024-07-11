@@ -1,0 +1,33 @@
+name: Application CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  application:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install all dependencies
+        run: bun install
+
+      - name: Format check application
+        run: bun format:check
+
+      - name: Lint application
+        run: bun lint
+
+      - name: Type check application
+        run: bun type:check
+
+      - name: Build application
+        run: bun run build
