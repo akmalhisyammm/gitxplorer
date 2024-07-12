@@ -96,7 +96,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 
           <main className="container p-4 mx-auto md:px-6">{children}</main>
 
-          <footer className="container p-4 mx-auto md:px-6">
+          <footer className="container px-4 py-8 mx-auto md:px-6">
             <p className="text-center">
               &copy; {new Date().getFullYear()} &bull;{' '}
               <Link
