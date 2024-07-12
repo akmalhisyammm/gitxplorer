@@ -17,7 +17,8 @@
     "format:check": "biome ci ./src next.* next-sitemap.* commitlint.*",
     "type:check": "tsc --noEmit",
     "release": "cross-env HUSKY=0 standard-version",
-    "release:push": "git push --follow-tags origin main"
+    "release:push": "git push --follow-tags origin main",
+    "husky": "husky"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.0",
