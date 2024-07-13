@@ -35,7 +35,7 @@ export const PaginationMenu = ({
         </PaginationItem>
 
         {page > 2 && totalPage > 3 && (
-          <PaginationItem>
+          <PaginationItem className="hidden sm:block">
             <PaginationLink
               href={`${pathname}?${generateURLQuery({ ...searchParams, page: '1' })}`}
               isActive={page === 1}
@@ -46,13 +46,13 @@ export const PaginationMenu = ({
         )}
 
         {page > 3 && totalPage > 4 && (
-          <PaginationItem>
+          <PaginationItem className="hidden sm:block">
             <PaginationEllipsis />
           </PaginationItem>
         )}
 
-        {Array.from({ length: 3 }, (_, i) => {
-          if (page === totalPage) {
+        {Array.from({ length: totalPage <= 3 ? totalPage : 3 }, (_, i) => {
+          if (totalPage > 3 && page === totalPage) {
             return i + page - 2;
           }
           if (page > 1) {
@@ -71,13 +71,13 @@ export const PaginationMenu = ({
         ))}
 
         {page < totalPage - 2 && totalPage > 4 && (
-          <PaginationItem>
+          <PaginationItem className="hidden sm:block">
             <PaginationEllipsis />
           </PaginationItem>
         )}
 
         {page < totalPage - 1 && totalPage > 3 && (
-          <PaginationItem>
+          <PaginationItem className="hidden sm:block">
             <PaginationLink
               href={`${pathname}?${generateURLQuery({ ...searchParams, page: totalPage.toString() })}`}
               isActive={page === totalPage}
