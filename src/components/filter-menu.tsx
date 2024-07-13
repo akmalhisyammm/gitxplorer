@@ -49,8 +49,14 @@ export const FilterMenu = ({
     );
   };
 
+  const onLimit = (value: string) => {
+    router.replace(
+      `${pathname}?${generateURLQuery({ ...searchParams, per_page: value, page: undefined })}`,
+    );
+  };
+
   return (
-    <div className="flex flex-col gap-4 md:flex-row">
+    <div className="flex flex-col gap-4 lg:flex-row">
       <Input
         type="search"
         placeholder={searchPlaceholder}
@@ -59,41 +65,55 @@ export const FilterMenu = ({
         className="w-full"
       />
 
-      <Select defaultValue={searchParams.sort} onValueChange={onSort}>
-        <SelectTrigger
-          className={`w-full md:w-1/4 ${searchParams.sort && 'capitalize'}`}
-        >
-          <SelectValue placeholder="Sort by">
-            {searchParams.sort || 'Sort by'}
-          </SelectValue>
+      <Select
+        defaultValue={searchParams.sort || sortOptions[0]}
+        onValueChange={onSort}
+      >
+        <SelectTrigger className="w-full lg:w-72">
+          <SelectValue placeholder="Sort">Select sort</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Sort by</SelectLabel>
+            <SelectLabel>Sort</SelectLabel>
             {sortOptions.map((option) => (
               <SelectItem key={option} value={option} className="capitalize">
-                {option}
+                {option.split('-').join(' ')}
               </SelectItem>
             ))}
           </SelectGroup>
         </SelectContent>
       </Select>
 
-      <Select defaultValue={searchParams.order} onValueChange={onOrder}>
-        <SelectTrigger className="w-full md:w-1/4">
-          <SelectValue placeholder="Order by">
-            {searchParams.order
-              ? searchParams.order === 'asc'
-                ? 'Ascending'
-                : 'Descending'
-              : 'Order by'}
-          </SelectValue>
+      <Select
+        defaultValue={searchParams.order || 'desc'}
+        onValueChange={onOrder}
+      >
+        <SelectTrigger className="w-full lg:w-72">
+          <SelectValue placeholder="Order">Select order</SelectValue>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Order by</SelectLabel>
+            <SelectLabel>Order</SelectLabel>
             <SelectItem value="desc">Descending</SelectItem>
             <SelectItem value="asc">Ascending</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+
+      <Select
+        defaultValue={searchParams.per_page || '12'}
+        onValueChange={onLimit}
+      >
+        <SelectTrigger className="w-full lg:w-72">
+          <SelectValue placeholder="Limit">Select limit</SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Limit</SelectLabel>
+            <SelectItem value="6">6</SelectItem>
+            <SelectItem value="12">12</SelectItem>
+            <SelectItem value="18">18</SelectItem>
+            <SelectItem value="24">24</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
