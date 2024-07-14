@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import {
   CircleDot,
   GitFork,
@@ -40,7 +41,6 @@ import { dayjsWithPlugins } from '@/lib/day';
 import { octokit } from '@/lib/octokit';
 
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 
 type RepositoryDetailProps = {
   params: {
@@ -55,26 +55,30 @@ type RepositoryDetailProps = {
 export const generateMetadata = async ({
   params,
 }: RepositoryDetailProps): Promise<Metadata> => {
-  const repositoryResponse = await octokit.request(
-    'GET /repos/{owner}/{repo}',
-    {
+  const repositoryResponse = await octokit
+    .request('GET /repos/{owner}/{repo}', {
       owner: params.organization,
       repo: params.repository,
-    },
-  );
+    })
+    .catch(() => ({
+      data: null,
+    }));
 
   const repository = repositoryResponse.data;
 
   return {
-    title: repository.full_name,
-    description: repository.description,
+    title: repository?.full_name || 'Not Found',
+    description:
+      repository?.description || 'The page you are looking for does not exist.',
     alternates: {
-      canonical: `/${repository?.full_name}`,
+      canonical: `/${repository?.full_name || `${params.organization}/${params.repository}`}`,
     },
     openGraph: {
-      title: `${repository?.full_name} | ${APP_NAME}`,
-      url: `${APP_URL}/${repository?.full_name}`,
-      description: repository.description || undefined,
+      title: `${repository?.full_name || 'Not Found'} | ${APP_NAME}`,
+      url: `${APP_URL}/${repository?.full_name || `${params.organization}/${params.repository}`}`,
+      description:
+        repository?.description ||
+        'The page you are looking for does not exist.',
     },
   };
 };
@@ -90,9 +94,7 @@ const RepositoryDetail = async ({
       owner: params.organization,
       repo: params.repository,
     })
-    .catch(() => ({
-      data: null,
-    }));
+    .catch(() => notFound());
 
   const contributorsResponse = await octokit
     .request('GET /repos/{owner}/{repo}/contributors', {
