@@ -94,7 +94,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             </div>
           </header>
 
-          <main className="container p-4 mx-auto md:px-6 space-y-4">
+          <main className="container p-4 mx-auto space-y-4 md:px-6">
             {children}
           </main>
 
