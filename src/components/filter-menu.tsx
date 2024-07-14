@@ -15,12 +15,7 @@ import {
 } from '@/components/ui/select';
 import { generateURLQuery } from '@/utils/url';
 
-export const FilterMenu = ({
-  searchPlaceholder,
-  sortOptions,
-  pathname,
-  searchParams,
-}: {
+type FilterMenuProps = {
   searchPlaceholder: string;
   sortOptions: string[];
   pathname: string;
@@ -28,7 +23,14 @@ export const FilterMenu = ({
     'q' | 'sort' | 'order' | 'per_page' | 'page',
     string | undefined
   >;
-}) => {
+};
+
+export const FilterMenu = ({
+  searchPlaceholder,
+  sortOptions,
+  pathname,
+  searchParams,
+}: FilterMenuProps) => {
   const router = useRouter();
 
   const onSearch = useDebouncedCallback((value: string) => {
