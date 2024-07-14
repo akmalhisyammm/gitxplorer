@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import {
   BookDashed,
   BookMarked,
@@ -61,15 +62,19 @@ export const generateMetadata = async ({
   const organization = response.data;
 
   return {
-    title: organization?.login || params.organization,
-    description: organization?.description,
+    title: organization?.login || 'Not Found',
+    description:
+      organization?.description ||
+      'The page you are looking for does not exist.',
     alternates: {
       canonical: `/${organization?.login || params.organization}`,
     },
     openGraph: {
-      title: `${organization?.login || params.organization} | ${APP_NAME}`,
+      title: `${organization?.login || 'Not Found'} | ${APP_NAME}`,
       url: `${APP_URL}/${organization?.login || params.organization}`,
-      description: organization?.description || undefined,
+      description:
+        organization?.description ||
+        'The page you are looking for does not exist.',
     },
   };
 };
@@ -93,9 +98,11 @@ const OrganizationDetail = async ({
       org: params.organization,
     })
     .catch(async () => {
-      const response = await octokit.request('GET /users/{username}', {
-        username: params.organization,
-      });
+      const response = await octokit
+        .request('GET /users/{username}', {
+          username: params.organization,
+        })
+        .catch(() => notFound());
 
       return {
         data: {
