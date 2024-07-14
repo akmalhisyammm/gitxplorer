@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GitXplorer
 
-## Getting Started
+Web application to explore GitHub organizations and their repositories with ease, integrated with [GitHub REST API](https://docs.github.com/en/rest).
 
-First, run the development server:
+## Motivation
+
+The motivation behind GitXplorer is to create a seamless and efficient way to explore GitHub organizations and their repositories. As developers, we often need to search for specific organizations, view their details, and open their repositories. Existing tools and interfaces can be cumbersome and slow. GitXplorer aims to streamline this process, making it faster and more intuitive to find GitHub organizations and their repositories.
+
+## Features
+
+- Quick search and filter of GitHub organizations and their repositories.
+- Detailed view of organization and repository information.
+- Configurable theme, it will respect the system's theme initially, but you can always change it.
+- Utilization of Server Components and Client Components for maximum performance.
+- Fully responsive and user-friendly interface with a modern design.
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) as the React framework for the web
+- [Shadcn UI](https://ui.shadcn.com/) as the component-based UI library
+- [GitHub Actions](https://github.com/features/actions) as the CI/CD part of the application
+- [Vercel](https://vercel.com/) as the deployment platform
+
+## Requirements
+
+You only need these software packages to run this application:
+
+- [Node.js](https://nodejs.org/en)
+- [Bun](https://bun.sh/) (optional — you can use another package manager like `npm`, `yarn`, etc.)
+
+## Development
+
+To start development quickly, please follow the steps below:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+git clone https://github.com/akmalhisyammm/gitxplorer.git
+cd gitxplorer
+bun install
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To create a production build, follow these steps:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run build
+bun start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Credits
 
-## Learn More
+- Icons made by [Flaticon](https://www.flaticon.com/).
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License. Please see the [LICENSE](./LICENSE) for more information.
