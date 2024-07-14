@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  application:
+  next:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,17 +17,50 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install all dependencies
+      - name: Install dependencies
         run: bun install
 
-      - name: Format check application
+      - name: Run format check
         run: bun format:check
 
-      - name: Lint application
+      - name: Run linter
         run: bun lint
 
-      - name: Type check application
+      - name: Run type check
         run: bun type:check
+
+      - name: Run unit tests
+        run: bun test:ci
 
       - name: Build application
         run: bun run build
+
+  e2e:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Install Playwright Browsers
+        run: bunx playwright install --with-deps
+      
+      - name: Run Playwright tests
+        run: bun e2e:ci
+      
+      - name: Upload Playwright test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 1
