@@ -46,6 +46,25 @@ bun run build
 bun start
 ```
 
+## Tests
+
+There are two test libraries used in this project, [Vitest](https://vitest.dev/) for unit tests and [Playwright](https://playwright.dev/) for end-to-end tests.
+
+To run unit tests, do the commands below:
+
+```bash
+bun run test
+bun test:ci
+```
+
+To run end-to-end tests, do the commands below:
+
+```bash
+bun e2e
+bun e2e:ci
+```
+
+
 ## Credits
 
 - Icons made by [Flaticon](https://www.flaticon.com/).
